@@ -1,4 +1,5 @@
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 class BasePage:
     TIMEOUT = 10
@@ -27,4 +28,12 @@ class BasePage:
     def get_current_url(self):
         return self.driver.current_url
 
-    
+    def wait_for_visible(self, locator, timeout=15):
+        return WebDriverWait(self.driver, timeout).until(EC.visibility_of_element_located(locator))
+
+    def if_visible(self, locator, timeout=5):
+        try:
+            self.wait_for_visible(locator, timeout)
+            return True
+        except TimeoutException:
+            return False
