@@ -1,4 +1,5 @@
 from selenium import webdriver
+
 class DriverFactory:
     @staticmethod
     def get_driver(browser = "chrome"):
@@ -13,6 +14,6 @@ class DriverFactory:
             driver = webdriver.Safari()
         else:
             raise ValueError(f"Unsupported browser: {browser}")
-        return driver
+
         driver.maximize_window()
         return driver
